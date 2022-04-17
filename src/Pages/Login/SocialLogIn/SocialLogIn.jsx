@@ -13,6 +13,8 @@ const SocialLogIn = ({ type }) => {
   const [signInWithGithub, userGithub, loadingGithub, errorGithub] =
     useSignInWithGithub(auth);
 
+  const error = errorGoogle || errorGithub;
+
   return (
     <div className="rounded-t mb-0 px-6 py-6">
       <div className="text-center mb-3">
@@ -38,6 +40,11 @@ const SocialLogIn = ({ type }) => {
           Google
         </button>
       </div>
+      {error && (
+        <div className="text-center mt-6 text-red-700 font-semibold">
+          <p style={{ transition: "all .15s ease" }}>{error.message}</p>
+        </div>
+      )}
       <hr className="mt-6 border-b-1 border-gray-400" />
     </div>
   );
