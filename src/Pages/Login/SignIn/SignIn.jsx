@@ -42,6 +42,12 @@ export default function SignIn() {
     }
   };
 
+  /*
+   * some style collect from creativetimofficial/tailwind-starter-kit
+   * & then modified 
+   * link -> https://github.com/creativetimofficial/tailwind-starter-kit/blob/main/Login%20Page/react-login-page/src/views/Login.js
+   */
+
   return (
     <section className="absolute w-full h-full">
       <div

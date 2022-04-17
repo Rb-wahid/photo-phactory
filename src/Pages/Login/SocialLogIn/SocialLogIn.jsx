@@ -15,6 +15,12 @@ const SocialLogIn = ({ type }) => {
 
   const error = errorGoogle || errorGithub;
 
+  /*
+   * some style collect from creativetimofficial/tailwind-starter-kit
+   * & then modified
+   * link -> https://github.com/creativetimofficial/tailwind-starter-kit/blob/main/Login%20Page/react-login-page/src/views/Login.js
+   */
+
   return (
     <div className="rounded-t mb-0 px-6 py-6">
       <div className="text-center mb-3">
