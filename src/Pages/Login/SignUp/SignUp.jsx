@@ -3,12 +3,17 @@ import register from "../img/register_bg_2.png";
 import github from "../img/github.svg";
 import google from "../img/google.svg";
 import { Link } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import auth from "../../../Firebase.init";
+import { updateProfile } from "firebase/auth";
 
 const SignUp = () => {
   const [createUserWithEmailAndPassword, user, loading, errorCreateUser] =
     useCreateUserWithEmailAndPassword(auth);
+  const [updateProfile, updating, errorUpdateProfile] = useUpdateProfile(auth);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,7 +22,9 @@ const SignUp = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     const checkbox = event.target.checkbox.checked;
+
     await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName: name });
   };
 
   return (
