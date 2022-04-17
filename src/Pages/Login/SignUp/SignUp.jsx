@@ -6,15 +6,19 @@ import { Link } from "react-router-dom";
 import {
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
+  useSendEmailVerification,
 } from "react-firebase-hooks/auth";
 import auth from "../../../Firebase.init";
 
 const SignUp = () => {
   const [createUserWithEmailAndPassword, user, loading, errorCreateUser] =
     useCreateUserWithEmailAndPassword(auth);
+  const [sendEmailVerification, sending, errorSendEmailVerification] =
+    useSendEmailVerification(auth);
   const [updateProfile, updating, errorUpdateProfile] = useUpdateProfile(auth);
 
-  const error = errorCreateUser || errorUpdateProfile;
+  const error =
+    errorCreateUser || errorUpdateProfile || errorSendEmailVerification;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,6 +30,7 @@ const SignUp = () => {
 
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name });
+    await sendEmailVerification();
   };
 
   return (
