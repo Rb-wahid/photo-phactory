@@ -1,21 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import register from "../img/register_bg_2.png";
 import { Link } from "react-router-dom";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
 import auth from "../../../Firebase.init";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useSignInWithEmailAndPassword,
+  useSendPasswordResetEmail,
+} from "react-firebase-hooks/auth";
+import { async } from "@firebase/util";
 
 export default function SignIn() {
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState({});
+  const [signInWithEmailAndPassword, user, loading, errorSignIn] =
     useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending, errorResetPassword] =
+    useSendPasswordResetEmail(auth);
+
+  if (errorSignIn || errorResetPassword) {
+    let err = errorSignIn || errorResetPassword;
+    setError(err);
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const email = event.target.email.value;
     const password = event.target.password.value;
 
     await signInWithEmailAndPassword(email, password);
+  };
+
+  const resetPassword = async (event) => {
+    if (email) {
+      setError({})
+      await sendPasswordResetEmail(email);
+    } else {
+      let err = {};
+      err.message = "Enter your email first";
+      setError(err);
+    }
   };
 
   return (
@@ -46,6 +68,7 @@ export default function SignIn() {
                       Email
                     </label>
                     <input
+                      onChange={(e) => setEmail(e.currentTarget.value)}
                       type="email"
                       className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                       placeholder="Email"
@@ -89,7 +112,9 @@ export default function SignIn() {
                   </div>
                   <div className="flex flex-wrap mt-6">
                     <div className="w-1/2 text-blue-500 hover:text-blue-700 font-semibold">
-                      <Link to>Forgot password?</Link>
+                      <Link to onClick={resetPassword}>
+                        Forgot password?
+                      </Link>
                     </div>
                     <div className="w-1/2 text-right text-blue-500 hover:text-blue-700 font-semibold">
                       <Link to="/signup">Create new account</Link>
