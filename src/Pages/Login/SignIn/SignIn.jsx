@@ -3,11 +3,12 @@ import register from "../img/register_bg_2.png";
 import { Link } from "react-router-dom";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
 import auth from "../../../Firebase.init";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   useSignInWithEmailAndPassword,
   useSendPasswordResetEmail,
 } from "react-firebase-hooks/auth";
-import { async } from "@firebase/util";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -31,7 +32,8 @@ export default function SignIn() {
 
   const resetPassword = async (event) => {
     if (email) {
-      setError({})
+      setError({});
+      toast("Sent password reset email");
       await sendPasswordResetEmail(email);
     } else {
       let err = {};
@@ -126,6 +128,7 @@ export default function SignIn() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 }
