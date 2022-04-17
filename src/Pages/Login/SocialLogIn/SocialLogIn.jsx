@@ -1,8 +1,12 @@
 import React from "react";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import auth from "../../../Firebase.init";
 import github from "../img/github.svg";
 import google from "../img/google.svg";
 
 const SocialLogIn = ({ type }) => {
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+
   return (
     <div className="rounded-t mb-0 px-6 py-6">
       <div className="text-center mb-3">
@@ -21,6 +25,7 @@ const SocialLogIn = ({ type }) => {
           className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center hover:font-bold text-xs"
           type="button"
           style={{ transition: "all .15s ease" }}
+          onClick={async () => await signInWithGoogle()}
         >
           <img alt="..." className="w-5 mr-1" src={google} />
           Google
