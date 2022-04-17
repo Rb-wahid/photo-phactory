@@ -51,6 +51,7 @@ export default function SignIn() {
                       placeholder="Email"
                       style={{ transition: "all .15s ease" }}
                       id="email"
+                      required
                     />
                   </div>
 
@@ -67,9 +68,16 @@ export default function SignIn() {
                       placeholder="Password"
                       style={{ transition: "all .15s ease" }}
                       id="password"
+                      required
                     />
                   </div>
-
+                  {error && (
+                    <div className="text-center mt-6 text-red-700 font-semibold">
+                      <p style={{ transition: "all .15s ease" }}>
+                        {error.message}
+                      </p>
+                    </div>
+                  )}
                   <div className="text-center mt-6">
                     <button
                       className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
