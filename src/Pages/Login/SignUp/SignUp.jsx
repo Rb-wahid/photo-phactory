@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import register from "../img/register_bg_2.png";
 import { Link } from "react-router-dom";
 import {
@@ -10,6 +10,7 @@ import auth from "../../../Firebase.init";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
 
 const SignUp = () => {
+  const [isAgree, setIsAgree] = useState(false);
   const [createUserWithEmailAndPassword, user, loading, errorCreateUser] =
     useCreateUserWithEmailAndPassword(auth);
   const [sendEmailVerification, sending, errorSendEmailVerification] =
@@ -25,7 +26,6 @@ const SignUp = () => {
     const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-    const checkbox = event.target.checkbox.checked;
 
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name });
@@ -65,6 +65,7 @@ const SignUp = () => {
                       placeholder="Name"
                       style={{ transition: "all .15s ease" }}
                       id="name"
+                      required
                     />
                   </div>
                   <div className="relative w-full mb-3">
@@ -80,6 +81,7 @@ const SignUp = () => {
                       placeholder="Email"
                       style={{ transition: "all .15s ease" }}
                       id="email"
+                      required
                     />
                   </div>
 
@@ -96,6 +98,7 @@ const SignUp = () => {
                       placeholder="Password"
                       style={{ transition: "all .15s ease" }}
                       id="password"
+                      required
                     />
                   </div>
                   <div>
@@ -105,6 +108,7 @@ const SignUp = () => {
                         type="checkbox"
                         className=" border-0 rounded text-gray-800 ml-1 w-5 h-5"
                         style={{ transition: "all .15s ease" }}
+                        onClick={(event) => setIsAgree(event.target.checked)}
                       />
                       <span className="ml-2 text-sm font-semibold text-gray-700">
                         Accept Terms and Conditions
@@ -121,7 +125,10 @@ const SignUp = () => {
 
                   <div className="text-center mt-6">
                     <button
-                      className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                      disabled={!isAgree}
+                      className={`bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ${
+                        !isAgree && "bg-opacity-40"
+                      } `}
                       type="submit"
                       style={{ transition: "all .15s ease" }}
                     >
