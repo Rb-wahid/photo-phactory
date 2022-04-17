@@ -8,12 +8,13 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import auth from "../../../Firebase.init";
-import { updateProfile } from "firebase/auth";
 
 const SignUp = () => {
   const [createUserWithEmailAndPassword, user, loading, errorCreateUser] =
     useCreateUserWithEmailAndPassword(auth);
   const [updateProfile, updating, errorUpdateProfile] = useUpdateProfile(auth);
+
+  const error = errorCreateUser || errorUpdateProfile;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -131,6 +132,13 @@ const SignUp = () => {
                       </span>
                     </label>
                   </div>
+                  {error && (
+                    <div className="text-center mt-6 text-red-700 font-semibold">
+                      <p style={{ transition: "all .15s ease" }}>
+                        {error.message}
+                      </p>
+                    </div>
+                  )}
 
                   <div className="text-center mt-6">
                     <button
