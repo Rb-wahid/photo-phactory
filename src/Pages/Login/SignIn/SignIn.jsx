@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import register from "../img/register_bg_2.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
 import auth from "../../../Firebase.init";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +11,11 @@ import {
 } from "react-firebase-hooks/auth";
 
 export default function SignIn() {
+  let navigate = useNavigate();
+  let location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
+
   const [email, setEmail] = useState("");
   const [error, setError] = useState({});
   const [signInWithEmailAndPassword, user, loading, errorSignIn] =
@@ -42,9 +47,14 @@ export default function SignIn() {
     }
   };
 
+
+  if (user) {
+    navigate(from, { replace: true });
+  }
+
   /*
    * some style collect from creativetimofficial/tailwind-starter-kit
-   * & then modified 
+   * & then modified
    * link -> https://github.com/creativetimofficial/tailwind-starter-kit/blob/main/Login%20Page/react-login-page/src/views/Login.js
    */
 

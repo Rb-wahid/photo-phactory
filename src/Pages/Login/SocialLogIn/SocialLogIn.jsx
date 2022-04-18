@@ -1,8 +1,10 @@
 import React from "react";
 import {
+  useAuthState,
   useSignInWithGithub,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../Firebase.init";
 import github from "../img/github.svg";
 import google from "../img/google.svg";
@@ -12,8 +14,18 @@ const SocialLogIn = ({ type }) => {
     useSignInWithGoogle(auth);
   const [signInWithGithub, userGithub, loadingGithub, errorGithub] =
     useSignInWithGithub(auth);
+  let navigate = useNavigate();
+  let location = useLocation();
 
-  const error = errorGoogle || errorGithub;
+  let from = location.state?.from?.pathname || "/";
+
+  const [user, loading, errorAuth] = useAuthState(auth);
+
+  const error = errorGoogle || errorGithub || errorAuth;
+  
+  if (user) {
+    navigate(from, { replace: true });
+  }
 
   /*
    * some style collect from creativetimofficial/tailwind-starter-kit

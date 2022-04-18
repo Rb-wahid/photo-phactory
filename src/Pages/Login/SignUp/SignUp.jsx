@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import register from "../img/register_bg_2.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useCreateUserWithEmailAndPassword,
   useUpdateProfile,
@@ -10,6 +10,7 @@ import auth from "../../../Firebase.init";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
 
 const SignUp = () => {
+  let navigate = useNavigate();
   const [isAgree, setIsAgree] = useState(false);
   const [createUserWithEmailAndPassword, user, loading, errorCreateUser] =
     useCreateUserWithEmailAndPassword(auth);
@@ -32,6 +33,9 @@ const SignUp = () => {
     await sendEmailVerification();
   };
 
+  if (user) {
+    navigate("/");
+  }
   /*
    * some style collect from creativetimofficial/tailwind-starter-kit
    * & then modified
