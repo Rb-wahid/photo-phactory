@@ -6,8 +6,14 @@ const Wedding = () => {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    return navigate('/checkout')
+    return navigate("/checkout");
   };
+
+  /*
+   * get design from here https://tailwind-elements.com/snippets/tailwind/tailwindelements/3590598
+   * then modified
+   */
+  
   return (
     <div className=" max-w-7xl m-auto mx-12 my-12">
       <h2 className="text-center text-2xl font-semibold mb-7 text-blue-700">
