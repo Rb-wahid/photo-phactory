@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="flex flex-col items-center justify-center mt-12 text-justify">
+    <div className="flex flex-col items-center justify-center mt-12 text-justify ">
       <div>
         <h2 className="italic text-3xl font-bold text-blue-600">
           Raihan Bin Wahid
@@ -10,7 +10,7 @@ const About = () => {
         <strong className="block pl-2 pt-2">JavaScript Coder</strong>
       </div>
 
-      <p className=" mt-6 text-lg w-[400px]">
+      <p className=" mt-6 text-lg w-[400px] px-6">
         I'm a JS coder. Recently I'm learning Front-end Development. I learned
         HTML, CSS JavaScript and the most popular JavaScript library React Js.
         My next goal is to get an offer for internship or Jr programmer
