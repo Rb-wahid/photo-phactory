@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { signOut } from "firebase/auth";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
@@ -6,8 +7,8 @@ import "tw-elements";
 import CustomLink from "../../../CustomLink/CustomLink";
 import auth from "../../../Firebase.init";
 const Header = () => {
-  const [user, loading, error] = useAuthState(auth);
-
+  const [user, loading, errorAuth] = useAuthState(auth);
+  console.log("header ", user);
   return (
     <nav
       className={`
@@ -114,21 +115,14 @@ const Header = () => {
             {user ? (
               <>
                 {/* Display If  Sign In  */}
-                {/* <!-- Icon --> */}
 
                 <div className="relative">
-                  <img
-                    src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                    className="rounded-full"
-                    style={{ height: "25px", width: "25px" }}
-                    alt=""
-                    loading="lazy"
-                  />
+                  <p>{user.displayName.split(' ')[0]}</p>
                 </div>
                 <Link
-                  to="/home"
+                  to="/"
                   className="pl-5 font-semibold text-gray-300 hover:text-gray-700 focus:text-gray-700 mr-4"
-                  href="#"
+                  onClick={() => signOut(auth)}
                 >
                   Sign out
                 </Link>
