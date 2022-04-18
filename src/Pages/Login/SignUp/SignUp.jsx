@@ -8,6 +8,7 @@ import {
 } from "react-firebase-hooks/auth";
 import auth from "../../../Firebase.init";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   let navigate = useNavigate();
